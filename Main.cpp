@@ -22,15 +22,19 @@ void stripPunctuation(char* word) {
     int j = 0;
     for (int i = 0; word[i]; i++) {
         unsigned char current = static_cast<unsigned char>(word[i]);
-        unsigned char prev = i > 0 ? static_cast<unsigned char>(word[i - 1]) : 0;
-        unsigned char next = word[i + 1] ? static_cast<unsigned char>(word[i + 1]) : 0;
 
-        if (isalpha(current) || (i > 0 && isalpha(prev) && isalpha(next))) {
+        if (isalpha(current)) {
             word[j++] = word[i];
+        }
+        else if (i > 0 && isalpha(static_cast<unsigned char>(word[i - 1])) &&
+            isalpha(static_cast<unsigned char>(word[i + 1]))) {
+            // Do nothing, just skip the punctuation. Letters around it are already added.
         }
     }
     word[j] = '\0'; // String termination
 }
+
+
 
 int main() {
     AVLTree tree;
@@ -64,6 +68,10 @@ int main() {
         else {
             stripPunctuation(word);
             toLowerCase(word);
+
+            if (strlen(word) == 0) {
+                continue;
+            }
 
 
             Word newWord;
