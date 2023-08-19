@@ -33,7 +33,6 @@ private:
 public:
     bool isFull() const;
     void insert(const Word& word);
-    void trimToSize(int targetSize);
     Word getTop();
     void removeTop();
     int getSize() const;

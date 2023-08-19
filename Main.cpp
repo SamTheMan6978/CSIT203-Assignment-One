@@ -9,6 +9,8 @@ using namespace std;
 
 
 // Functions
+
+// Lower case Conversion
 void toLowerCase(char* s) {
     while (*s) {
         if (static_cast<unsigned char>(*s) >= 0 && static_cast<unsigned char>(*s) <= 255) {
@@ -18,6 +20,7 @@ void toLowerCase(char* s) {
     }
 }
 
+// Punctuation stripping from read words
 void stripPunctuation(char* word) {
     int j = 0;
     for (int i = 0; word[i]; i++) {
@@ -37,6 +40,7 @@ void stripPunctuation(char* word) {
 
 
 int main() {
+    // Instantiating the AVL Tree
     AVLTree tree;
 
     // Variable declaration for file reading
@@ -53,8 +57,8 @@ int main() {
         cout << "File: " << filename << " has been opened successfully!" << endl;
     }
     else {
-        cout << "ERROR: File not found!" << endl;
-        return 1;
+        cout << "ERROR: File: " << filename << " not found!" << endl;
+        return 0;
     }
 
     // Word reading
@@ -74,10 +78,12 @@ int main() {
             }
 
 
+            // instantiating the Word struct
             Word newWord;
             strcpy_s(newWord.word, word);
             newWord.count = 1;
 
+            // Using the Node object to search the tree and increasing count if detected
             Node* existingWordNode = tree.search(word);
             if (!existingWordNode) {
                 tree.insert(newWord);
